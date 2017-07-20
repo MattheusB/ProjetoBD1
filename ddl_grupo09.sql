@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS Clientes;
 DROP TABLE IF EXISTS Telefones;
+DROP TABLE IF EXISTS Clientes;
 
 CREATE TABLE IF NOT EXISTS Clientes (
 	cpf char(11) PRIMARY KEY NOT NULL,
@@ -10,27 +10,13 @@ CREATE TABLE IF NOT EXISTS Clientes (
 	numero varchar(10) NOT NULL, 
 	bairro varchar(30) NOT NULL,
 	cep char(8) NOT NULL
-) DEFAULT CHARSET=utf8, ENGINE INNODB;
+) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Telefones (
-	cpf char(11) NOT NULL,
-	ddd char(3) NOT NULL,
+	cpfCli char(11) NOT NULL,
 	telefone varchar(9) NOT NULL,
 	
-    PRIMARY KEY (ddd, telefone),
-    CONSTRAINT cliente_telefone
-		FOREIGN KEY (cpf) REFERENCES Clientes(cpf) ON DELETE CASCADE
-) ENGINE INNODB;
-
--- INSERT INTO Clientes VALUES('11445733439', 
---                               'Lucas Henrique',
---                               '1997-04-04',
---                               'M', 
---                               'Rua 1', 
---                               '1400', 
---                               'Universitário',
---                               '55750000');
--- 
-INSERT INTO Telefones VALUES(
-	'11445733439', '081', '9999999'
-);
+    PRIMARY KEY (cpfCli, telefone),
+    CONSTRAINT cpfUsr
+		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8;

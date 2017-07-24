@@ -42,18 +42,6 @@ CREATE TABLE IF NOT EXISTS Dependente(
 		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Nota_Fiscal(
-	id_nota INT NOT NULL,
-    cpfCli varchar(11) NOT NULL,
-    dt_in DATE NOT NULL,
-    dt_out DATE NOT NULL,
-    valor REAL NOT NULL,
-    
-    PRIMARY KEY (id_nota),
-    CONSTRAINT cpfCliente
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
-) DEFAULT CHARSET=utf8;
-
 CREATE TABLE IF NOT EXISTS Quarto (
 	id INT NOT NULL,
     numero INT NOT NULL UNIQUE,
@@ -87,6 +75,21 @@ CREATE TABLE IF NOT EXISTS Hospeda (
 		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
 	CONSTRAINT idQuarto
 		FOREIGN KEY (idQuarto) REFERENCES Quarto(id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS Nota_Fiscal(
+	id_nota INT NOT NULL,
+    id_quarto INT NOT NULL,
+    cpfCli varchar(11) NOT NULL,
+    dt_in DATE NOT NULL,
+    dt_out DATE NOT NULL,
+    valor REAL NOT NULL,
+    
+    PRIMARY KEY (id_nota, cpfCli, id_quarto),
+    CONSTRAINT cpfCliente
+		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE,
+	CONSTRAINT quartoRef
+		FOREIGN KEY (id_quarto) REFERENCES Quarto(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Equipamento(

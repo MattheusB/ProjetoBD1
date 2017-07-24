@@ -6,7 +6,9 @@ DROP TABLE IF EXISTS Dependente;
 DROP TABLE IF EXISTS Nota_Fiscal;
 DROP TABLE IF EXISTS Clientes;
 DROP TABLE IF EXISTS Equipamento;
+DROP TABLE IF EXISTS Vende;
 DROP TABLE IF EXISTS Quarto;
+DROP TABLE IF EXISTS Prestados;
 DROP TABLE IF EXISTS Funcionario;
 DROP TABLE IF EXISTS Servico;
 DROP TABLE IF EXISTS Produto;
@@ -118,6 +120,17 @@ CREATE TABLE IF NOT EXISTS Servico (
     PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS Prestados (
+	cpfFunc varchar(11) NOT NULL,
+    idServico INT NOT NULL,
+    
+    PRIMARY KEY(cpfFunc, idServico),
+    CONSTRAINT cpfFunc
+		FOREIGN KEY (cpfFunc) REFERENCES Funcionario(cpf) ON DELETE CASCADE,
+	CONSTRAINT idServico
+		FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS Avalia (
 	cpfCli varchar(11) NOT NULL,
     idServico INT NOT NULL,
@@ -138,4 +151,17 @@ CREATE TABLE IF NOT EXISTS Produto (
     valor real NOT NULL,
     
     PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS Vende (
+	idProduto INT NOT NULL,
+    idQuarto INT NOT NULL,
+    dataVenda DATE NOT NULL,
+    quantidade INT NOT NULL,
+    
+    PRIMARY KEY (idProduto, idQuarto),
+    CONSTRAINT id_produto
+		FOREIGN KEY (idProduto) REFERENCES Produto(id) ON DELETE CASCADE,
+	CONSTRAINT id_quarto_ref
+		FOREIGN KEY (idQuarto) REFERENCES Quarto(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;

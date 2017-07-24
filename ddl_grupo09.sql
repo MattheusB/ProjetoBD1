@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS Avalia;
 DROP TABLE IF EXISTS Hospeda;
 DROP TABLE IF EXISTS Reserva;
 DROP TABLE IF EXISTS Telefones;
@@ -115,6 +116,19 @@ CREATE TABLE IF NOT EXISTS Servico (
     valor real NOT NULL,
     
     PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS Avalia (
+	cpfCli varchar(11) NOT NULL,
+    idServico INT NOT NULL,
+    nota real NOT NULL,
+    comentario varchar(255),
+    
+    PRIMARY KEY(cpfCli, idServico),
+    CONSTRAINT cpf_cli
+		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE,
+	CONSTRAINT id_servico
+		FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Produto (

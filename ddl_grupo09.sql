@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS Reserva;
 DROP TABLE IF EXISTS Telefones;
 DROP TABLE IF EXISTS Dependente;
 DROP TABLE IF EXISTS Nota_Fiscal;
-DROP TABLE IF EXISTS Clientes;
+DROP TABLE IF EXISTS Cliente;
 DROP TABLE IF EXISTS Equipamento;
 DROP TABLE IF EXISTS Vende;
 DROP TABLE IF EXISTS Quarto;
@@ -13,7 +13,7 @@ DROP TABLE IF EXISTS Funcionario;
 DROP TABLE IF EXISTS Servico;
 DROP TABLE IF EXISTS Produto;
 
-CREATE TABLE IF NOT EXISTS Clientes (
+CREATE TABLE IF NOT EXISTS Cliente (
 	cpf char(11) PRIMARY KEY NOT NULL,
 	nome varchar(200) NOT NULL,
     email varchar(200) NOT NULL,
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS Telefones (
 	
     PRIMARY KEY (cpfCli, telefone),
     CONSTRAINT cpfUsr
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Dependente(
@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS Dependente(
     
     PRIMARY KEY (cpf, cpfCli),
     CONSTRAINT cpfCliRef
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Quarto (
@@ -63,7 +63,7 @@ CREATE TABLE IF NOT EXISTS Reserva (
     
     PRIMARY KEY(cpfCli, idQuarto),
     CONSTRAINT cliRef
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf),
 	CONSTRAINT id_quarto
 		FOREIGN KEY (idQuarto) REFERENCES Quarto(id)
 ) DEFAULT CHARSET=utf8;
@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS Hospeda (
     
     PRIMARY KEY(cpfCli, idQuarto),
     CONSTRAINT cli_ref
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf),
 	CONSTRAINT idQuarto
 		FOREIGN KEY (idQuarto) REFERENCES Quarto(id)
 ) DEFAULT CHARSET=utf8;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS Nota_Fiscal(
     
     PRIMARY KEY (id_nota, cpfCli, id_quarto),
     CONSTRAINT cpfCliente
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE,
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE,
 	CONSTRAINT quartoRef
 		FOREIGN KEY (id_quarto) REFERENCES Quarto(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
@@ -140,7 +140,7 @@ CREATE TABLE IF NOT EXISTS Avalia (
     
     PRIMARY KEY(cpfCli, idServico),
     CONSTRAINT cpf_cli
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE,
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE,
 	CONSTRAINT id_servico
 		FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;

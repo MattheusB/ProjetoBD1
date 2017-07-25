@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS Quarto (
     numero INT NOT NULL UNIQUE,
     tipo varchar(100) NOT NULL,
     vista boolean,
+    diaria real NOT NULL,
     
     PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8; 

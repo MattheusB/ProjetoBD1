@@ -6,9 +6,11 @@ DROP TABLE IF EXISTS Reserva;
 DROP TABLE IF EXISTS Telefones;
 DROP TABLE IF EXISTS Dependente;
 DROP TABLE IF EXISTS Nota_Fiscal;
-DROP TABLE IF EXISTS Clientes;
+DROP TABLE IF EXISTS Cliente;
 DROP TABLE IF EXISTS Equipamento;
+DROP TABLE IF EXISTS Vende;
 DROP TABLE IF EXISTS Quarto;
+DROP TABLE IF EXISTS Prestados;
 DROP TABLE IF EXISTS Funcionario;
 DROP TABLE IF EXISTS Servico;
 DROP TABLE IF EXISTS Produto;
@@ -19,7 +21,7 @@ DROP TABLE IF EXISTS ServicoRestaurante;
 DROP TABLE IF EXISTS ServicoEstacionamento;
 DROP TABLE IF EXISTS ServicoBar;
 
-CREATE TABLE IF NOT EXISTS Clientes (
+CREATE TABLE IF NOT EXISTS Cliente (
 	cpf char(11) PRIMARY KEY NOT NULL,
 	nome varchar(200) NOT NULL,
     email varchar(200) NOT NULL,
@@ -37,7 +39,7 @@ CREATE TABLE IF NOT EXISTS Telefones (
 	
     PRIMARY KEY (cpfCli, telefone),
     CONSTRAINT cpfUsr
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Dependente(
@@ -48,7 +50,7 @@ CREATE TABLE IF NOT EXISTS Dependente(
     
     PRIMARY KEY (cpf, cpfCli),
     CONSTRAINT cpfCliRef
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Quarto (
@@ -56,6 +58,7 @@ CREATE TABLE IF NOT EXISTS Quarto (
     numero INT NOT NULL UNIQUE,
     tipo varchar(100) NOT NULL,
     vista boolean,
+    diaria real NOT NULL,
     
     PRIMARY KEY(id)
 ) DEFAULT CHARSET=utf8; 
@@ -68,7 +71,7 @@ CREATE TABLE IF NOT EXISTS Reserva (
     
     PRIMARY KEY(cpfCli, idQuarto),
     CONSTRAINT cliRef
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf),
 	CONSTRAINT id_quarto
 		FOREIGN KEY (idQuarto) REFERENCES Quarto(id)
 ) DEFAULT CHARSET=utf8;
@@ -81,7 +84,7 @@ CREATE TABLE IF NOT EXISTS Hospeda (
     
     PRIMARY KEY(cpfCli, idQuarto),
     CONSTRAINT cli_ref
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf),
 	CONSTRAINT idQuarto
 		FOREIGN KEY (idQuarto) REFERENCES Quarto(id)
 ) DEFAULT CHARSET=utf8;
@@ -96,7 +99,7 @@ CREATE TABLE IF NOT EXISTS Nota_Fiscal(
     
     PRIMARY KEY (id_nota, cpfCli, id_quarto),
     CONSTRAINT cpfCliente
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE,
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE,
 	CONSTRAINT quartoRef
 		FOREIGN KEY (id_quarto) REFERENCES Quarto(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
@@ -185,6 +188,17 @@ CREATE TABLE IF NOT EXISTS Servico (
 		FOREIGN KEY (id_ser_bar) REFERENCES ServicoBar(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS Prestados (
+	cpfFunc varchar(11) NOT NULL,
+    idServico INT NOT NULL,
+    
+    PRIMARY KEY(cpfFunc, idServico),
+    CONSTRAINT cpfFunc
+		FOREIGN KEY (cpfFunc) REFERENCES Funcionario(cpf) ON DELETE CASCADE,
+	CONSTRAINT idServico
+		FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
+) DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS Avalia (
 	cpfCli varchar(11) NOT NULL,
     idServico INT NOT NULL,
@@ -193,7 +207,7 @@ CREATE TABLE IF NOT EXISTS Avalia (
     
     PRIMARY KEY(cpfCli, idServico),
     CONSTRAINT cpf_cli
-		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf) ON DELETE CASCADE,
+		FOREIGN KEY (cpfCli) REFERENCES Cliente(cpf) ON DELETE CASCADE,
 	CONSTRAINT id_servico
 		FOREIGN KEY (idServico) REFERENCES Servico(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
@@ -205,4 +219,17 @@ CREATE TABLE IF NOT EXISTS Produto (
     valor real NOT NULL,
     
     PRIMARY KEY(id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS Vende (
+	idProduto INT NOT NULL,
+    idQuarto INT NOT NULL,
+    dataVenda DATE NOT NULL,
+    quantidade INT NOT NULL,
+    
+    PRIMARY KEY (idProduto, idQuarto),
+    CONSTRAINT id_produto
+		FOREIGN KEY (idProduto) REFERENCES Produto(id) ON DELETE CASCADE,
+	CONSTRAINT id_quarto_ref
+		FOREIGN KEY (idQuarto) REFERENCES Quarto(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;

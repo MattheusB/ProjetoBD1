@@ -1,3 +1,5 @@
+USE bd1;
+
 DROP TABLE IF EXISTS Hospeda;
 DROP TABLE IF EXISTS Reserva;
 DROP TABLE IF EXISTS Telefones;
@@ -9,6 +11,12 @@ DROP TABLE IF EXISTS Quarto;
 DROP TABLE IF EXISTS Funcionario;
 DROP TABLE IF EXISTS Servico;
 DROP TABLE IF EXISTS Produto;
+DROP TABLE IF EXISTS ServicoLavanderia;
+DROP TABLE IF EXISTS ServicoPasseioTuristico;
+DROP TABLE IF EXISTS ServicoFrigobar;
+DROP TABLE IF EXISTS ServicoRestaurante;
+DROP TABLE IF EXISTS ServicoEstacionamento;
+DROP TABLE IF EXISTS ServicoBar;
 
 CREATE TABLE IF NOT EXISTS Clientes (
 	cpf char(11) PRIMARY KEY NOT NULL,
@@ -110,11 +118,71 @@ CREATE TABLE IF NOT EXISTS Funcionario (
     PRIMARY KEY(cpf)
 ) DEFAULT CHARSET=utf8;
 
-CREATE TABLE IF NOT EXISTS Servico (
+
+CREATE TABLE IF NOT EXISTS ServicoLavanderia (
 	id INT NOT NULL,
-    valor real NOT NULL,
     
-    PRIMARY KEY(id)
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS ServicoPasseioTuristico (
+	id INT NOT NULL,
+    
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS ServicoFrigobar (
+	id INT NOT NULL,
+    
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS ServicoRestaurante (
+	id INT NOT NULL,
+    
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS ServicoEstacionamento (
+	id INT NOT NULL,
+    
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS ServicoBar (
+	id INT NOT NULL,
+    
+    PRIMARY KEY (id)
+) DEFAULT CHARSET=utf8;
+
+
+CREATE TABLE IF NOT EXISTS Servico (
+	id INT PRIMARY KEY NOT NULL,
+    valor real NOT NULL,
+    id_ser_lavanderia INT,
+    id_ser_passeio_tur INT, 
+    id_ser_frigobar INT, 
+    id_ser_restaurante INT, 
+    id_ser_estacionamento INT, 
+    id_ser_bar INT,
+    
+    CONSTRAINT id_ser_lavanderia
+		FOREIGN KEY (id_ser_lavanderia) REFERENCES ServicoLavanderia(id) ON DELETE CASCADE,
+        
+	CONSTRAINT id_ser_passeio_tur
+		FOREIGN KEY (id_ser_passeio_tur) REFERENCES ServicoPasseioTuristico(id) ON DELETE CASCADE,
+        
+	CONSTRAINT id_ser_frigobar
+		FOREIGN KEY (id_ser_frigobar) REFERENCES ServicoFrigobar(id) ON DELETE CASCADE,
+        
+	CONSTRAINT id_ser_restaurante
+		FOREIGN KEY (id_ser_restaurante) REFERENCES ServicoRestaurante(id) ON DELETE CASCADE,
+        
+	CONSTRAINT id_ser_estacionamento
+		FOREIGN KEY (id_ser_estacionamento) REFERENCES ServicoEstacionamento(id) ON DELETE CASCADE,
+        
+	CONSTRAINT id_ser_bar
+		FOREIGN KEY (id_ser_bar) REFERENCES ServicoBar(id) ON DELETE CASCADE
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS Produto (

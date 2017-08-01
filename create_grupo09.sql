@@ -1,28 +1,3 @@
-USE bd1;
-
-DROP TABLE Hospeda CASCADE CONSTRAINTS;
-DROP TABLE Reserva CASCADE CONSTRAINTS;
-DROP TABLE Telefones;
-DROP TABLE Dependente CASCADE CONSTRAINTS;
-DROP TABLE Nota_Fiscal CASCADE CONSTRAINTS;
-DROP TABLE Clientes CASCADE CONSTRAINTS;
-DROP TABLE Equipamento CASCADE CONSTRAINTS;
-DROP TABLE Quarto CASCADE CONSTRAINTS;
-DROP TABLE Funcionario CASCADE CONSTRAINTS;
-DROP TABLE Servico CASCADE CONSTRAINTS;
-DROP TABLE Produto CASCADE CONSTRAINTS;
-DROP TABLE ServicoLavanderia;
-DROP TABLE ServicoPasseioTuristico;
-DROP TABLE ServicoFrigobar;
-DROP TABLE ServicoRestaurante;
-DROP TABLE ServicoEstacionamento;
-DROP TABLE ServicoBar;
-DROP TABLE Prestados CASCADE CONSTRAINTS;
-DROP TABLE Avalia;
-DROP TABLE Vende CASCADE CONSTRAINTS;
-
-
-
 CREATE TABLE  Clientes (
 	cpf char(11) PRIMARY KEY NOT NULL,
 	nome varchar(200) NOT NULL,
@@ -47,7 +22,7 @@ CREATE TABLE  Telefones (
 CREATE TABLE Dependente(
     cpf char(11) NOT NULL,
     cpfCli char(11) NOT NULL,
-	nome varchar(200) NOT NULL,
+    nome varchar(200) NOT NULL,
     dataNascimento DATE NOT NULL,
     
     PRIMARY KEY (cpf, cpfCli),
@@ -56,8 +31,8 @@ CREATE TABLE Dependente(
 ); 
 
 CREATE TABLE Quarto (
-	id INT NOT NULL,
-    numero integer NOT NULL UNIQUE,
+	id INTEGER NOT NULL,
+    numero INTEGER NOT NULL UNIQUE,
     tipo varchar(100) NOT NULL,
     com_vista char(1),    
     
@@ -74,9 +49,7 @@ CREATE TABLE Reserva (
     CONSTRAINT cliRef
 		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
 	CONSTRAINT id_quarto
-		FOREIGN KEY (idQuarto) REFERENCES Quarto(id),
-    CONSTRAINT check_data_reserva
-        CHECK(data_ini < data_fim)
+		FOREIGN KEY (idQuarto) REFERENCES Quarto(id)
 );
 
 CREATE TABLE Hospeda (
@@ -90,7 +63,7 @@ CREATE TABLE Hospeda (
 		FOREIGN KEY (cpfCli) REFERENCES Clientes(cpf),
 	CONSTRAINT idQuarto
 		FOREIGN KEY (idQuarto) REFERENCES Quarto(id),
-    CONSTRAINT check_data_hospedagem 
+    CONSTRAINT check_data 
         CHECK(data_ini < data_fim)
 );
 

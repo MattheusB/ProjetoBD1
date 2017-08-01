@@ -1,0 +1,48 @@
+--CLIENTES
+INSERT INTO Clientes VALUES('01387612387', 'Mattheus', 'mattheuscanxinha@ccc.ufcg.edu.br', TO_DATE('03/02/1998', 'DD/MM/YYYY'), 'f', 'Rua Santo Antonio', '97','mirante', '98132095');
+INSERT INTO Clientes VALUES('91248918277', 'Lucas', 'lucascanxinha@ccc.ufcg.edu.br', TO_DATE('12/03/1996', 'DD/MM/YYYY'), 'm', 'Rua São Francisco', '305','Santo Antonio', '98132025');
+INSERT INTO Clientes VALUES('57138571311', 'Ruan', 'ruancanxinha@ccc.ufcg.edu.br', TO_DATE('09/05/1993', 'DD/MM/YYYY'), 'm', 'Rua Santo André', '89','Alto Branco', '98129685');
+INSERT INTO Clientes VALUES('41928510977', 'Manoel', 'manoelcanxinha@ccc.ufcg.edu.br', TO_DATE('21/07/1999', 'DD/MM/YYYY'), 'f', 'Rua São Lucas', '03','Universitario', '01294812');
+INSERT INTO Clientes VALUES('91428471755', 'Luiz', 'luizcanxinha@ccc.ufcg.edu.br', TO_DATE('15/12/2000', 'DD/MM/YYYY'), 'm', 'Rua Santo Mateus', '102','Prata', '41298412');
+INSERT INTO Clientes VALUES('10287561921', 'Vinicius', 'viniciuscanxinha@ccc.ufcg.edu.br', TO_DATE('04/06/1997', 'DD/MM/YYYY'), 'f', 'Rua Almirante Barroso', '540','monte castelo', '7512987');
+
+--TELEFONES
+INSERT INTO Telefones VALUES('01387612387', '998238855');
+INSERT INTO Telefones VALUES('01387612387', '998238851');
+INSERT INTO Telefones VALUES('01387612387', '998238850');
+INSERT INTO Telefones VALUES('01387612387', '993231855');
+INSERT INTO Telefones VALUES('01387612387', '998268855');
+
+INSERT INTO Telefones VALUES('57138571311', '998268850');
+INSERT INTO Telefones VALUES('57138571311', '993271855');
+INSERT INTO Telefones VALUES('57138571311', '998288855');
+
+--DEPENDENTE
+INSERT INTO Dependente VALUES('90838478375', '01387612387', 'Mariazinha', TO_DATE('03/06/1976', 'DD/MM/YYYY'));
+INSERT INTO Dependente VALUES('90838478374', '01387612387', 'Chiquinho', TO_DATE('07/06/1989', 'DD/MM/YYYY'));
+INSERT INTO Dependente VALUES('90838478373', '91248918277', 'Netinho', TO_DATE('10/10/2010', 'DD/MM/YYYY'));
+INSERT INTO Dependente VALUES('90838478372', '01387612387', 'Jose', TO_DATE('05/11/1998', 'DD/MM/YYYY'));
+INSERT INTO Dependente VALUES('90838478371', '41928510977', 'Francisco', TO_DATE('04/07/1999', 'DD/MM/YYYY'));
+INSERT INTO Dependente VALUES('90838478378', '10287561921', 'Valentina', TO_DATE('05/12/2001', 'DD/MM/YYYY'));
+
+--QUARTO
+INSERT INTO Quarto VALUES(1, 101, 'suite presidencial', 's')
+INSERT INTO Quarto VALUES(3, 201, 'suite comercial', 'n')
+INSERT INTO Quarto VALUES(5, 401, 'suite normal', 'n')
+INSERT INTO Quarto VALUES(2, 103, 'suite presidencial', 's')
+INSERT INTO Quarto VALUES(4, 501, 'suite normal', 'n')
+INSERT INTO Quarto VALUES(6, 107, 'suite comercial', 's')
+
+--RESERVA
+INSERT INTO Reserva VALUES('01387612387', 1, TO_DATE('03/06/2017', 'DD/MM/YYYY'), TO_DATE('12/06/2017', 'DD/MM/YYYY'))
+INSERT INTO Reserva VALUES('91248918277', 4, TO_DATE('08/12/2018', 'DD/MM/YYYY'), TO_DATE('03/08/2018', 'DD/MM/YYYY'))
+INSERT INTO Reserva VALUES('01387612387', 2, TO_DATE('15/06/2017', 'DD/MM/YYYY'), TO_DATE('12/07/2017', 'DD/MM/YYYY'))
+INSERT INTO Reserva VALUES('91428471755', 3, TO_DATE('15/06/2017', 'DD/MM/YYYY'), TO_DATE('12/07/2017', 'DD/MM/YYYY'))
+
+--FUNCIONARIOS
+INSERT INTO Funcionario VALUES('10287561921', 'Marcos', 1800.00, TO_DATE('03/02/1998', 'DD/MM/YYYY'))
+INSERT INTO Funcionario VALUES('10287561921', 'Marcos', 1800.00, TO_DATE('03/02/1998', 'DD/MM/YYYY'))
+INSERT INTO Funcionario VALUES('10287561921', 'Marcos', 1800.00, TO_DATE('03/02/1998', 'DD/MM/YYYY'))
+INSERT INTO Funcionario VALUES('10287561921', 'Marcos', 1800.00, TO_DATE('03/02/1998', 'DD/MM/YYYY'))
+INSERT INTO Funcionario VALUES('10287561921', 'Marcos', 1800.00, TO_DATE('03/02/1998', 'DD/MM/YYYY'))
+
